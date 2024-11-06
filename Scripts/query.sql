@@ -63,11 +63,23 @@ where c.customerId is NULL;
 
 select  e.employeeId, 
         e.firstName, 
-        e.lastName, 
-        e.title,
-        count(s.salesId) as TotalSales
+        e.lastName,
+        count(*) as TotalSales
 from employee e
 join sales s
 on e.employeeId = s.employeeId
 group by e.employeeId, e.firstName, e.lastName
 order by TotalSales DESC;
+
+-- Challange 5:
+-- Find the least and most expensive car sold by each employee this year
+select  e.employeeId,
+        e.firstName,
+        e.lastName,
+        min(s.salesAmount) as MinimumSale,
+        max(s.salesAmount) as MaximumSale
+from employee e
+join sales s
+on e.employeeId = s.employeeId
+where s.soldDate between '2022-01-01' and '2022-12-31'
+group by e.employeeId;
