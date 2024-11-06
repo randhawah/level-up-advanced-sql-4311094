@@ -46,6 +46,7 @@ select  c.firstName,
 from customer c
 left join sales s
 on c.customerId = s.customerId
+where s.salesId is NULL
 UNION
 select  c.firstName, 
         c.lastName, 
@@ -54,4 +55,8 @@ select  c.firstName,
         s.soldDate
 from customer c
 right join sales s
-on c.customerId = s.customerId;
+on c.customerId = s.customerId
+where c.customerId is NULL;
+
+-- Challange 4:
+-- 
