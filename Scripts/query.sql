@@ -59,4 +59,15 @@ on c.customerId = s.customerId
 where c.customerId is NULL;
 
 -- Challange 4:
--- 
+-- pull a report that totals the number of cars sold by each employee
+
+select  e.employeeId, 
+        e.firstName, 
+        e.lastName, 
+        e.title,
+        count(s.salesId) as TotalSales
+from employee e
+join sales s
+on e.employeeId = s.employeeId
+group by e.employeeId, e.firstName, e.lastName
+order by TotalSales DESC;
