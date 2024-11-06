@@ -111,3 +111,41 @@ select  year,
 from cte
 group by year
 order by year;
+
+-- Challange 8:
+-- Display cars sold for each employee by month for 2021
+-- rows per employee, with first name and last name, 
+-- columns with month names and values
+
+select  e.firstName, 
+        e.lastName,
+        SUM(case when strftime('%m', soldDate) = '01'
+        then salesAmount END) AS JanSales,
+        SUM(case when strftime('%m', soldDate) = '02'
+        then salesAmount END) AS FebSales,
+        SUM(case when strftime('%m', soldDate) = '03'
+        then salesAmount END) AS MarSales,
+        SUM(case when strftime('%m', soldDate) = '04'
+        then salesAmount END) AS AprSales,
+        SUM(case when strftime('%m', soldDate) = '05'
+        then salesAmount END) AS MaySales,
+        SUM(case when strftime('%m', soldDate) = '06'
+        then salesAmount END) AS JunSales,
+        SUM(case when strftime('%m', soldDate) = '07'
+        then salesAmount END) AS JulSales,
+        SUM(case when strftime('%m', soldDate) = '08'
+        then salesAmount END) AS AugSales,
+        SUM(case when strftime('%m', soldDate) = '09'
+        then salesAmount END) AS SepSales,
+        SUM(case when strftime('%m', soldDate) = '10'
+        then salesAmount END) AS OctSales,
+        SUM(case when strftime('%m', soldDate) = '11'
+        then salesAmount END) AS NovSales,
+        SUM(case when strftime('%m', soldDate) = '12'
+        then salesAmount END) AS DecSales
+from employee e
+join sales s on e.employeeId = s.employeeId
+where soldDate between '2021-01-01' and '2021-12-31'
+group by e.firstName, e.lastName
+order by e.lastName, e.firstName;
+
