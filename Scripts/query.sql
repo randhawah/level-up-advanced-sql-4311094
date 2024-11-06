@@ -81,7 +81,7 @@ select  e.employeeId,
 from employee e
 join sales s
 on e.employeeId = s.employeeId
-where s.soldDate between '2022-01-01' and '2022-12-31'
+where s.soldDate between '2023-01-01' and '2023-12-31'
 group by e.employeeId;
 
 -- Challange 6:
@@ -95,6 +95,19 @@ select  e.employeeId,
 from employee e
 join sales s
 on e.employeeId = s.employeeId
-where s.soldDate between '2022-01-01' and '2022-12-31'
+where s.soldDate between '2023-01-01' and '2023-12-31'
 group by e.employeeId, e.firstName, e.lastName
 having CarsSold > 5;
+
+-- Challange 7:
+-- Summarise sales per year by using a CTE
+with cte as(
+select  strftime('%Y', soldDate) as year,
+        salesAmount
+from sales
+)
+select  year,
+        format("$%.2f", sum(salesAmount)) as yearlySales
+from cte
+group by year
+order by year;
