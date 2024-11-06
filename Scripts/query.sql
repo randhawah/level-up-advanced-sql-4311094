@@ -149,3 +149,10 @@ where soldDate between '2021-01-01' and '2021-12-31'
 group by e.firstName, e.lastName
 order by e.lastName, e.firstName;
 
+-- Challange 9:
+-- Find sales of cars which are electric by using a subquery
+
+select  s.soldDate, s.salesAmount, i.colour, i.year
+from sales s 
+join inventory i on s.inventoryId = i.inventoryId
+where i.modelId in (select modelId from model where EngineType = 'Electric');
