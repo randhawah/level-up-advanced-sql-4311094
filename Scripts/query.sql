@@ -83,3 +83,18 @@ join sales s
 on e.employeeId = s.employeeId
 where s.soldDate between '2022-01-01' and '2022-12-31'
 group by e.employeeId;
+
+-- Challange 6:
+-- Display report for employees who have sold at least 5 cars
+select  e.employeeId,
+        e.firstName,
+        e.lastName,
+        count(*) as CarsSold,
+        min(s.salesAmount) as MinimumSale,
+        max(s.salesAmount) as MaximumSale
+from employee e
+join sales s
+on e.employeeId = s.employeeId
+where s.soldDate between '2022-01-01' and '2022-12-31'
+group by e.employeeId, e.firstName, e.lastName
+having CarsSold > 5;
